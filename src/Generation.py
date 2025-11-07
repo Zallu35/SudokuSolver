@@ -1,8 +1,7 @@
 import Board
 import tkinter as tk
 
-def main():
-    #creating board elements
+def create_elements():
     Gameboard = Board()
     Row1, Row2, Row3, Row4, Row5, Row6, Row7, Row8, Row9 = Row(), Row(), Row(), Row(), Row(), Row(), Row(), Row(), Row()
     Column1, Column2, Column3, Column4, Column5, Column6, Column7, Column8, Column9 = Column(), Column(), Column(), Column(), Column(), Column(), Column(), Column(), Column()
@@ -17,7 +16,3 @@ def main():
     Cell81, Cell82, Cell83, Cell84, Cell85, Cell86, Cell87, Cell88, Cell89 = Cell(Row8, Column1, Box7), Cell(Row8, Column2, Box7), Cell(Row8, Column3, Box7), Cell(Row8, Column4, Box8), Cell(Row8, Column5, Box8), Cell(Row8, Column6, Box8), Cell(Row8, Column7, Box9), Cell(Row8, Column8, Box9), Cell(Row8, Column9, Box9)
     Cell91, Cell92, Cell93, Cell94, Cell95, Cell96, Cell97, Cell98, Cell99 = Cell(Row9, Column1, Box7), Cell(Row9, Column2, Box7), Cell(Row9, Column3, Box7), Cell(Row9, Column4, Box8), Cell(Row9, Column5, Box8), Cell(Row9, Column6, Box8), Cell(Row9, Column7, Box9), Cell(Row9, Column8, Box9), Cell(Row9, Column9, Box9)
     
-
-
-
-main()
