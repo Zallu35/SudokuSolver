@@ -8,3 +8,4 @@ def find_singles(potentials_dict):
             sing_lst.append(i)
     return sing_lst
 
+def 
