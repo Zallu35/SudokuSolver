@@ -25,4 +25,41 @@ def create_game():
             board[x].append(0)
     return board
     
- 
+def fill_board(game, cells):
+    index=0
+    x=0
+    while x < 9:
+        y=0
+        while y < 9:
+            if cells[index].get():
+                game[x][y] = cells[index].get()
+            else:
+                game[x][y] = 0
+            y+=1
+            index+=1
+        x+=1
+
+def reset_board(entries):
+    for entry in entries:
+            entry.delete(0)
+
+def create_empty_cells_dict(game, cells, pot_dict):
+    index = 0
+    for x in range(9):
+        box_counter = 1
+        if x > 2:
+            box_counter = 4
+        if x > 5:
+            box_counter = 7
+        for y in range(9):
+            if y == 3:
+                box_counter +=1
+            if y == 6:
+                box_counter +=1
+            if game[x][y] == 0:
+                pot_dict[f"{x}{y}"]=[cells[index], ['1','2','3','4','5','6','7','8','9'], box_counter]
+            else:
+                pot_dict[f"{x}{y}"]=[cells[index], [], box_counter]
+            index+=1
+            
+            
