@@ -17,13 +17,28 @@ def main():
     def solve_action():
         fill_board(gb, Cell_list)
         create_empty_cells_dict(gb, Cell_list, potentials)
-        logic.update_potentials(gb, potentials, '00', boxes)
+        for cell in potentials:
+            if potentials[cell][1]:
+                logic.update_potentials(gb, potentials, cell, boxes)
+        logic.fill_singles(gb, potentials, boxes)
     
     def clear_board():
         reset_board(Cell_list)
+        create_empty_cells_dict(gb, Cell_list, potentials)
     
     def entry_restriction(value):
         return re.match('^[0-9]*$', value) is not None and len(value) <2
+
+    def t1():
+        logic.insert_value(gb, potentials, cell_index, boxes, new_value)
+
+    def t2():
+        logic.update_potentials(gb, potentials, '02', boxes)
+    
+    def t3():
+        for key in potentials:
+            print(key, potentials[key][1])
+        print(gb)
     
         
     root = Tk()
@@ -64,6 +79,12 @@ def main():
     clear_board.grid(column=0, row=1, sticky=(W))
     test_vals = ttk.Button(root, text="Vals", command=print_vals)
     test_vals.grid(column=0, row=1)
+    test_f1 = ttk.Button(root, text="One", command=t1)
+    test_f1.grid(column=1, row=0, sticky=(N))
+    test_f2 = ttk.Button(root, text="Two", command=t2)
+    test_f2.grid(column=1, row=0)
+    test_f3 = ttk.Button(root, text="Three", command=t3)
+    test_f3.grid(column=1, row=0, sticky=(S))
 
 
     root.mainloop() 
