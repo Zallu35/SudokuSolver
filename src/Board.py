@@ -1,4 +1,8 @@
 
+"""
+The original idea I had was to store everything in a variety of classes and run the logic through methods. I also wasn't going to have a user interface and just have all fields entered via CLI.
+I have since changed my mind on how I wanted to do this and do not use any of this code at the moment. I didn't want to delete it in case any of it wound up being useful in the future but it's likely to be removed at the end of the project
+"""
 
 class Board:
     def __init__(self):

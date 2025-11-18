@@ -2,7 +2,7 @@ import re
 import Board
 import tkinter as tk
 
-def create_elements():
+def create_elements(): #relic of an earlier idea, unused currently and likely to be deleted
     Gameboard = Board()
     Row1, Row2, Row3, Row4, Row5, Row6, Row7, Row8, Row9 = Row(), Row(), Row(), Row(), Row(), Row(), Row(), Row(), Row()
     Column1, Column2, Column3, Column4, Column5, Column6, Column7, Column8, Column9 = Column(), Column(), Column(), Column(), Column(), Column(), Column(), Column(), Column()
@@ -17,7 +17,7 @@ def create_elements():
     Cell81, Cell82, Cell83, Cell84, Cell85, Cell86, Cell87, Cell88, Cell89 = Cell(Row8, Column1, Box7), Cell(Row8, Column2, Box7), Cell(Row8, Column3, Box7), Cell(Row8, Column4, Box8), Cell(Row8, Column5, Box8), Cell(Row8, Column6, Box8), Cell(Row8, Column7, Box9), Cell(Row8, Column8, Box9), Cell(Row8, Column9, Box9)
     Cell91, Cell92, Cell93, Cell94, Cell95, Cell96, Cell97, Cell98, Cell99 = Cell(Row9, Column1, Box7), Cell(Row9, Column2, Box7), Cell(Row9, Column3, Box7), Cell(Row9, Column4, Box8), Cell(Row9, Column5, Box8), Cell(Row9, Column6, Box8), Cell(Row9, Column7, Box9), Cell(Row9, Column8, Box9), Cell(Row9, Column9, Box9)
 
-def create_game():
+def create_game(): #creates the initial game board
     board = []
     for x in range(9):
         board.append([])
@@ -25,7 +25,7 @@ def create_game():
             board[x].append(0)
     return board
     
-def fill_board(game, cells):
+def fill_board(game, cells): #fills the given game board (matrix, list of lists) with the values input from the tkinter entry fields (it's a sudoku so there should be a total of 81)
     index=0
     x=0
     while x < 9:
@@ -39,11 +39,11 @@ def fill_board(game, cells):
             index+=1
         x+=1
 
-def reset_board(entries):
+def reset_board(entries): #clears all values from the tkinter entries
     for entry in entries:
             entry.delete(0)
 
-def create_empty_cells_dict(game, cells, pot_dict):
+def create_empty_cells_dict(game, cells, pot_dict): #creates the dictionary used to perform most of the solving logic based on the tkinter entriess
     index = 0
     for x in range(9):
         box_counter = 1

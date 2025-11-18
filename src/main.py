@@ -7,16 +7,16 @@ from Funcs import logic
 
 def main():
     
-    def print_vals():
+    def print_vals(): #Considering converting this into an update or save button to initialize the board without tieing the fill and create functions to the solve button
         for C in Cell_list:
             if C.get():
                 print(f"{C}:{C.get()}") 
         for key in potentials:
             print(key, potentials[key][1])
+        print(gb)
 
     def solve_action():
         fill_board(gb, Cell_list)
-        create_empty_cells_dict(gb, Cell_list, potentials)
         for cell in potentials:
             if potentials[cell][1]:
                 logic.update_potentials(gb, potentials, cell, boxes)
@@ -27,18 +27,17 @@ def main():
         create_empty_cells_dict(gb, Cell_list, potentials)
     
     def entry_restriction(value):
-        return re.match('^[0-9]*$', value) is not None and len(value) <2
+        return re.match('^[1-9]*$', value) is not None and len(value) <2
 
     def t1():
-        logic.insert_value(gb, potentials, cell_index, boxes, new_value)
+        logic.potentials_row_scan(gb, potentials, boxes)
 
     def t2():
-        logic.update_potentials(gb, potentials, '02', boxes)
+        logic.potentials_column_scan(gb, potentials, boxes)
     
     def t3():
-        for key in potentials:
-            print(key, potentials[key][1])
-        print(gb)
+        logic.potentials_box_scan(gb, potentials, boxes)
+        
     
         
     root = Tk()
@@ -60,6 +59,7 @@ def main():
             Cell_list.append(CellID)
 
     gb = create_game()
+    potentials = {}
     boxes = {
         1:['00', '01', '02', '10', '11', '12', '20', '21', '22'],
         2:['03', '04', '05', '13', '14', '15', '23', '24', '25'],
@@ -71,7 +71,8 @@ def main():
         8:['63', '64', '65', '73', '74', '75', '83', '84', '85'],
         9:['66', '67', '68', '76', '77', '78', '86', '87', '88']
     }
-    potentials = {}
+    create_empty_cells_dict(gb, Cell_list, potentials)
+    
             
     solve = ttk.Button(root, text = "Solve", command=solve_action)
     solve.grid(column=0, row=1, sticky=(E))
