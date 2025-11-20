@@ -7,9 +7,8 @@ def fill_singles(game, pot_dict, boxes_dict): #scans potentials dictionary for a
     for key in pot_dict:
         if len(pot_dict[key][1]) == 1:
             sing_lst.append(key)
-    print(sing_lst)
+    #print(sing_lst) #used for debugging
     for cell in sing_lst:
-        print('iteration')
         value = pot_dict[cell][1][0]
         insert_value(game, pot_dict, cell, boxes_dict, value)
         values_changed += 1
@@ -78,7 +77,8 @@ def potentials_row_scan(game, pot_dict, boxes_dict): #scans all rows for isolate
             for fill in filling_list:
                 for item in row_cells:
                     if fill in pot_dict[item][1]:
-                        insert_value(game, pot_dict, item, boxes_dict, int(fill))
+                        #print(f"'{item}': {fill}") #used for debugging
+                        insert_value(game, pot_dict, item, boxes_dict, fill)
                         row_cells.remove(item)
                         values_changed += 1
     return values_changed
@@ -104,7 +104,8 @@ def potentials_column_scan(game, pot_dict, boxes_dict): #scans all columns for i
             for fill in filling_list:
                 for item in column_cells:
                     if fill in pot_dict[item][1]:
-                        insert_value(game, pot_dict, item, boxes_dict, int(fill))
+                        #print(f"'{item}': {fill}") #used for debugging
+                        insert_value(game, pot_dict, item, boxes_dict, fill)
                         column_cells.remove(item)
                         values_changed += 1
     return values_changed
@@ -114,29 +115,24 @@ def potentials_box_scan(game, pot_dict, boxes_dict): #scans all boxes for isolat
     for key in range(1,10):
         box_cells = []
         ref_cells = boxes_dict[key]
-        #print(ref_cells)
         for cellID in ref_cells:
-            #print(cellID)
-            #print(pot_dict[cellID][0].get())
             if not pot_dict[cellID][0].get():
                 box_cells.append(cellID)
-        #print(box_cells)
         scanning_list = []
         for cell in box_cells:
             cell_potentials = pot_dict[cell][1]
             if len(cell_potentials)>0:
                 scanning_list.extend(cell_potentials)
-        #print(scanning_list)
         filling_list = []
         for val in range(1,10):
             if scanning_list.count(str(val)) == 1:
                 filling_list.append(str(val))
-        #print(filling_list)
         if len(filling_list)>0:
             for fill in filling_list:
                 for item in box_cells:
                     if fill in pot_dict[item][1]:
-                        insert_value(game, pot_dict, item, boxes_dict, int(fill))
+                        #print(f"'{item}': {fill}") #used for debugging
+                        insert_value(game, pot_dict, item, boxes_dict, fill)
                         box_cells.remove(item)
                         values_changed += 1
     return values_changed

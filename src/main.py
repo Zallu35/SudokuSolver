@@ -9,9 +9,9 @@ from solve_func import *
 def main():
     
     def print_vals(): #Considering converting this into an update or save button to initialize the board without tieing the fill and create functions to the solve button
-        for C in Cell_list:
-            if C.get():
-                print(f"{C}:{C.get()}") 
+        #for C in Cell_list:
+            #if C.get():
+                #print(f"{C}:{C.get()}") 
         for key in potentials:
             print(key, potentials[key][1])
         print(gb[0])
@@ -39,11 +39,7 @@ def main():
         return re.match('^[1-9]*$', value) is not None and len(value) <2
 
     def t1():
-        fill_board(gb, Cell_list)
-        for cell in potentials:
-            #if potentials[cell][1]:
-            logic.update_potentials(gb, potentials, cell, boxes)
-        #logic.potentials_row_scan(gb, potentials, boxes)
+        logic.potentials_row_scan(gb, potentials, boxes)
 
     def t2():
         logic.potentials_column_scan(gb, potentials, boxes)
@@ -51,6 +47,8 @@ def main():
     def t3():
         logic.potentials_box_scan(gb, potentials, boxes)
         
+    def t4():
+        logic.fill_singles(gb, potentials, boxes)
     
         
     root = Tk()
@@ -93,12 +91,14 @@ def main():
     clear_board.grid(column=0, row=1, sticky=(W))
     test_vals = ttk.Button(root, text="Vals", command=print_vals)
     test_vals.grid(column=0, row=1)
-    test_f1 = ttk.Button(root, text="One", command=t1)
+    test_f1 = ttk.Button(root, text="Row", command=t1)
     test_f1.grid(column=1, row=0, sticky=(N))
-    test_f2 = ttk.Button(root, text="Two", command=t2)
+    test_f2 = ttk.Button(root, text="Column", command=t2)
     test_f2.grid(column=1, row=0)
-    test_f3 = ttk.Button(root, text="Three", command=t3)
+    test_f3 = ttk.Button(root, text="Box", command=t3)
     test_f3.grid(column=1, row=0, sticky=(S))
+    test_f4 = ttk.Button(root, text="Fill", command=t4)
+    test_f4.grid(column=1, row=1, sticky=(N, W))
 
 
     root.mainloop() 
