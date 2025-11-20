@@ -2,16 +2,24 @@
 
 
 def fill_singles(game, pot_dict, boxes_dict): #scans potentials dictionary for any cells with only one potential value and fills it in
+    values_changed = 0
     sing_lst = []
     for key in pot_dict:
         if len(pot_dict[key][1]) == 1:
             sing_lst.append(key)
+    print(sing_lst)
     for cell in sing_lst:
+        print('iteration')
         value = pot_dict[cell][1][0]
         insert_value(game, pot_dict, cell, boxes_dict, value)
+        values_changed += 1
+    return values_changed
 
 def update_potentials(game, pot_dict, cell_index, boxes_dict): #updates an individual cell's potentials list based on the current state of the board
     split_index = list(cell_index)
+    if game[int(split_index[0])][int(split_index[1])] != 0:
+        pot_dict[cell_index][1].clear()
+        return
     for value in game[int(split_index[0])]:
         if value in pot_dict[cell_index][1]:
             pot_dict[cell_index][1].remove(value)
@@ -50,6 +58,7 @@ def insert_value(game, pot_dict, cell_index, boxes_dict, new_value): #inserts a 
         update_potentials(game, pot_dict, cell, boxes_dict)
 
 def potentials_row_scan(game, pot_dict, boxes_dict): #scans all rows for isolated potentials (only one instance of a potential value) and fills them if any are found
+    values_changed = 0
     for row in range(9):
         row_cells = []
         for column in range(9):
@@ -71,8 +80,11 @@ def potentials_row_scan(game, pot_dict, boxes_dict): #scans all rows for isolate
                     if fill in pot_dict[item][1]:
                         insert_value(game, pot_dict, item, boxes_dict, int(fill))
                         row_cells.remove(item)
+                        values_changed += 1
+    return values_changed
 
 def potentials_column_scan(game, pot_dict, boxes_dict): #scans all columns for isolated potentials (only one instance of a potential value) and fills them if any are found
+    values_changed = 0
     for column in range(9):
         column_cells = []
         for row in range(9):
@@ -94,32 +106,37 @@ def potentials_column_scan(game, pot_dict, boxes_dict): #scans all columns for i
                     if fill in pot_dict[item][1]:
                         insert_value(game, pot_dict, item, boxes_dict, int(fill))
                         column_cells.remove(item)
+                        values_changed += 1
+    return values_changed
 
 def potentials_box_scan(game, pot_dict, boxes_dict): #scans all boxes for isolated potentials (only one instance of a potential value) and fills them if any are found
+    values_changed = 0
     for key in range(1,10):
         box_cells = []
         ref_cells = boxes_dict[key]
-        print(ref_cells)
+        #print(ref_cells)
         for cellID in ref_cells:
             #print(cellID)
             #print(pot_dict[cellID][0].get())
             if not pot_dict[cellID][0].get():
                 box_cells.append(cellID)
-        print(box_cells)
+        #print(box_cells)
         scanning_list = []
         for cell in box_cells:
             cell_potentials = pot_dict[cell][1]
             if len(cell_potentials)>0:
                 scanning_list.extend(cell_potentials)
-        print(scanning_list)
+        #print(scanning_list)
         filling_list = []
         for val in range(1,10):
             if scanning_list.count(str(val)) == 1:
                 filling_list.append(str(val))
-        print(filling_list)
+        #print(filling_list)
         if len(filling_list)>0:
             for fill in filling_list:
                 for item in box_cells:
                     if fill in pot_dict[item][1]:
                         insert_value(game, pot_dict, item, boxes_dict, int(fill))
                         box_cells.remove(item)
+                        values_changed += 1
+    return values_changed

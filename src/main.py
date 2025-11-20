@@ -4,6 +4,7 @@ from tkinter import *
 from tkinter import ttk
 from Generation import *
 from Funcs import logic
+from solve_func import *
 
 def main():
     
@@ -13,14 +14,22 @@ def main():
                 print(f"{C}:{C.get()}") 
         for key in potentials:
             print(key, potentials[key][1])
-        print(gb)
+        print(gb[0])
+        print(gb[1])
+        print(gb[2])
+        print(gb[3])
+        print(gb[4])
+        print(gb[5])
+        print(gb[6])
+        print(gb[7])
+        print(gb[8])
 
     def solve_action():
         fill_board(gb, Cell_list)
         for cell in potentials:
-            if potentials[cell][1]:
-                logic.update_potentials(gb, potentials, cell, boxes)
-        logic.fill_singles(gb, potentials, boxes)
+            #if potentials[cell][1]:
+            logic.update_potentials(gb, potentials, cell, boxes)
+        solve_puzzle(gb, potentials, boxes)
     
     def clear_board():
         reset_board(Cell_list)
@@ -30,7 +39,11 @@ def main():
         return re.match('^[1-9]*$', value) is not None and len(value) <2
 
     def t1():
-        logic.potentials_row_scan(gb, potentials, boxes)
+        fill_board(gb, Cell_list)
+        for cell in potentials:
+            #if potentials[cell][1]:
+            logic.update_potentials(gb, potentials, cell, boxes)
+        #logic.potentials_row_scan(gb, potentials, boxes)
 
     def t2():
         logic.potentials_column_scan(gb, potentials, boxes)
