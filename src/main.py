@@ -32,7 +32,7 @@ def main():
         solve_puzzle(gb, potentials, boxes)
     
     def clear_board():
-        reset_board(Cell_list)
+        reset_board(Cell_list, gb)
         create_empty_cells_dict(gb, Cell_list, potentials)
     
     def entry_restriction(value):

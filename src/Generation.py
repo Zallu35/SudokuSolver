@@ -39,9 +39,12 @@ def fill_board(game, cells): #fills the given game board (matrix, list of lists)
             index+=1
         x+=1
 
-def reset_board(entries): #clears all values from the tkinter entries
+def reset_board(entries, game): #clears all values from the tkinter entries
     for entry in entries:
-            entry.delete(0)
+        entry.delete(0)
+    for row in range(9):
+        for column in range(9):
+            game[row][column] = 0
 
 def create_empty_cells_dict(game, cells, pot_dict): #creates the dictionary used to perform most of the solving logic based on the tkinter entriess
     index = 0
